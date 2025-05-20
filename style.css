@@ -1,0 +1,33 @@
+body{
+   font-family: 'Arial';
+}
+
+h1, h2{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.livros-container {
+    display: flex;
+    justify-content: center;  /* centraliza horizontalmente */
+    align-items: center;     /* centraliza verticalmente (opcional) */
+    gap: 50px;              /* espaçamento entre as imagens */
+    margin: 40px auto;      /* margem externa */
+    flex-wrap: wrap;       /* permite quebra de linha em telas pequenas */
+  }
+  
+  .livros-container img {
+    max-height: 350px;     /* altura máxima das imagens */
+    width: auto;          /* largura proporcional */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* sombra opcional */
+}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center; /* CENTRALIZA */
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+

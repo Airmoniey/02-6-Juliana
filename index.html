@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librelivro</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .livros-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .livro-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            max-width: 250px;
+        }
+
+        .livro-link {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .livro-link:hover {
+            transform: scale(1.05);
+        }
+
+        .livro-link img {
+            max-height: 300px;
+            width: auto;
+            border: 3px solid transparent;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .livro-link:hover img {
+            border-color: #2a7ae4;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            display: flex;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .modal img {
+            max-width: 300px;
+            max-height: 400px;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+
+        .modal-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        /* Estrelas */
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 1.8rem;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #ffcc00;
+        }
+
+        .modal-form textarea {
+            resize: vertical;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+
+        .modal-form button {
+            padding: 10px;
+            font-size: 1rem;
+            background-color: #2a7ae4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-form button:hover {
+            background-color: #1f5fc1;
+        }
+
+        .modal-form p {
+            margin-top: 10px;
+            color: green;
+            font-weight: bold;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .escondido {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Librelivro</h1>
+    <h2>Seu lugar de opinião.</h2>
+
+    <div class="livros-container">
+        <!-- Livro 1 -->
+        <div class="livro-item">
+            <div class="livro-link" onclick="abrirModal('./imagens/Livro1.webp')">
+                <img src="./imagens/Livro1.webp" alt="Capa do Livro 1">
+            </div>
+        </div>
+
+        <!-- Livro 2 -->
+        <div class="livro-item">
+            <div class="livro-link" onclick="abrirModal('./imagens/Livro2.webp')">
+                <img src="./imagens/Livro2.webp" alt="Capa do Livro 2">
+            </div>
+        </div>
+
+        <!-- Livro 3 -->
+        <div class="livro-item">
+            <div class="livro-link" onclick="abrirModal('./imagens/Livro3.jpg')">
+                <img src="./imagens/Livro3.jpg" alt="Capa do Livro 3">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <span class="close-modal" onclick="fecharModal()">×</span>
+        <div class="modal-content">
+            <img src="" id="modalImagem" alt="Livro">
+            <div class="modal-form">
+                <!-- Avaliação com estrelas -->
+                <div class="rating" id="modalRating">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                </div>                
+
+                <textarea id="modalMensagem" placeholder="Escreva sua opinião aqui..."></textarea>
+                <button onclick="enviarMensagem()">Enviar</button>
+                <p id="modalConfirmacao" class="escondido">Sua mensagem foi enviada.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function abrirModal(imagemSrc) {
+            document.getElementById('modalImagem').src = imagemSrc;
+            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('modalMensagem').value = '';
+            document.getElementById('modalMensagem').disabled = false;
+            document.querySelector('.modal-form button').disabled = false;
+            document.getElementById('modalConfirmacao').classList.add('escondido');
+
+            // Resetar avaliação
+            const estrelas = document.querySelectorAll('#modalRating input');
+            estrelas.forEach(estrela => estrela.checked = false);
+        }
+
+        function fecharModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function enviarMensagem() {
+            const textarea = document.getElementById('modalMensagem');
+            const confirmacao = document.getElementById('modalConfirmacao');
+            const botao = document.querySelector('.modal-form button');
+
+            if (textarea.value.trim() !== '') {
+                textarea.disabled = true;
+                botao.disabled = true;
+                confirmacao.classList.remove('escondido');
+            } else {
+                alert("Por favor, escreva uma mensagem antes de enviar.");
+            }
+        }
+    </script>
+</body>
+</html>
