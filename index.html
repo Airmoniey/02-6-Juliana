@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Librelivro</title>
-    <link rel="stylesheet" href="./style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,11 +12,51 @@
             background-color: #f5f5f5;
         }
 
-        h1, h2 {
-            text-align: center;
-            color: #333;
+        /* Estilos do cabeçalho */
+        .cabecalho-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
+        .cabecalho-texto {
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin: 0 0 5px 0;
+            font-size: 2.2rem;
+        }
+
+        h2 {
+            color: #555;
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: normal;
+        }
+
+        .logo {
+            height: 80px;
+            width: auto;
+            max-width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .cabecalho-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .logo {
+                height: 70px;
+            }
+        }
+
+        /* Estilos dos livros */
         .livros-container {
             display: flex;
             justify-content: center;
@@ -78,13 +117,36 @@
             max-width: 800px;
             width: 90%;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .modal-img-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 20px;
         }
 
         .modal img {
             max-width: 300px;
             max-height: 400px;
-            margin-right: 20px;
             border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .modal-link {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #2a7ae4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .modal-link:hover {
+            background-color: #1f5fc1;
         }
 
         .modal-form {
@@ -95,13 +157,24 @@
         }
 
         /* Estrelas */
+        .rating-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .rating-label {
+            font-size: 1rem;
+            color: #555;
+        }
+
         .rating {
             display: flex;
             flex-direction: row-reverse;
-            justify-content: center;
             align-items: center;
             gap: 5px;
-            margin-bottom: 10px;
         }
 
         .rating input {
@@ -113,6 +186,7 @@
             color: #ccc;
             cursor: pointer;
             transition: color 0.2s;
+            line-height: 1;
         }
 
         .rating input:checked ~ label,
@@ -163,30 +237,55 @@
         .escondido {
             display: none;
         }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            color: #666;
+        }
+
+        .sinopse {
+            margin-top: 20px;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #555;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
-    <h1>Librelivro</h1>
-    <h2>Seu lugar de opinião.</h2>
+    
+    <div class="cabecalho-container">
+        <div class="cabecalho-texto">
+            <h1>Librelivro</h1>
+            <h2>Seu lugar de opinião.</h2>
+        </div>
+        <img src="./imagens/logo.png" alt="Logo Librelivro" class="logo">
+    </div>
 
     <div class="livros-container">
         <!-- Livro 1 -->
         <div class="livro-item">
-            <div class="livro-link" onclick="abrirModal('./imagens/Livro1.webp')">
+            <div class="livro-link" onclick="abrirModal('./imagens/Livro1.webp', 'https://www.amazon.com.br/di%C3%A1rio-Anne-Frank/dp/8501044458', 'O Diário de Anne Frank é um dos relatos mais comoventes dos horrores da guerra e do Holocausto. Escrito por Anne Frank entre 1942 e 1944, mostra a vida de uma adolescente judia escondida com sua família durante a ocupação nazista na Holanda.')">
                 <img src="./imagens/Livro1.webp" alt="Capa do Livro 1">
             </div>
         </div>
 
         <!-- Livro 2 -->
         <div class="livro-item">
-            <div class="livro-link" onclick="abrirModal('./imagens/Livro2.webp')">
+            <div class="livro-link" onclick="abrirModal('./imagens/Livro2.webp', 'https://www.amazon.com.br/Half-Life-2-Raising-David-Hodgson/dp/0761543643/ref=sr_1_1?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=38KOMKQ14B95C&dib=eyJ2IjoiMSJ9.fd1fZ0kBsxz6uDMcxbqAL3_c-Krnug5mVznPXxNwnefGjHj071QN20LucGBJIEps._2DS787_uq39NlGvHlznk_76ns-DPfo7Ij7kEPuGeao&dib_tag=se&keywords=Half-Life+2+Raising+the+bar&qid=1747749472&s=books&sprefix=half-life+2+raising+the+b%2Cstripbooks%2C299&sr=1-1', 'Half-Life 2: Raising the Bar oferece um mergulho profundo no desenvolvimento do aclamado jogo Half-Life 2. Com centenas de ilustrações, conceitos e histórias por trás das cenas, este livro é um tesouro para fãs da série e entusiastas de design de jogos.')">
                 <img src="./imagens/Livro2.webp" alt="Capa do Livro 2">
             </div>
         </div>
 
         <!-- Livro 3 -->
         <div class="livro-item">
-            <div class="livro-link" onclick="abrirModal('./imagens/Livro3.jpg')">
+            <div class="livro-link" onclick="abrirModal('./imagens/Livro3.jpg', 'https://www.amazon.com.br/Di%C3%A1rio-Um-Banana-Jeff-Kinney/dp/8576831309/ref=sr_1_2?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1P143C4ZZSELP&dib=eyJ2IjoiMSJ9.8f8COP5SsT11ebP18l_0-1IBt-CqyRh5OEG1a9Fui6OImCeSCaBOXedbTRG_Ujk36HZaZ-q_4GzVwn_MiI5JR6B3MP0fwvxYHiaUshPE6MDTe3URf-ppRryFiJm0lclBBOID1cdC-Nz2RGmZVoxrICoQ-Y-X1kQhasRfry-Nrnz3z6Q-JzNnnqmw1q72L-srFZoXAn5GI3aPYY_O6CPU6VNXBKdHhMoqW_vUpl95ffM.DwoBGfg1o3Z5mP1bXstT8vZzfZo97Ir0mn3ofDwsgAU&dib_tag=se&keywords=Di%C3%A1rio+de+um+banana&qid=1747749498&s=books&sprefix=di%C3%A1rio+de+um+ban%2Cstripbooks%2C246&sr=1-2', 'Diário de um Banana é uma série de livros de Jeff Kinney que narra as desventuras hilárias de Greg Heffley, um garoto que está tentando sobreviver ao ensino fundamental. Cheio de desenhos engraçados e situações cômicas, o livro cativa crianças e adultos com seu humor único.')">
                 <img src="./imagens/Livro3.jpg" alt="Capa do Livro 3">
             </div>
         </div>
@@ -196,27 +295,38 @@
     <div class="modal" id="modal">
         <span class="close-modal" onclick="fecharModal()">×</span>
         <div class="modal-content">
-            <img src="" id="modalImagem" alt="Livro">
+            <div class="modal-img-container">
+                <img src="" id="modalImagem" alt="Livro">
+                <a href="#" id="modalLink" class="modal-link" target="_blank">Comprar Livro</a>
+            </div>
             <div class="modal-form">
                 <!-- Avaliação com estrelas -->
-                <div class="rating" id="modalRating">
-                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
-                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
-                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
-                </div>                
+                <div class="rating-container">
+                    <span class="rating-label">Avaliação do usuário:</span>
+                    <div class="rating" id="modalRating">
+                        <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                    </div>
+                </div>
 
                 <textarea id="modalMensagem" placeholder="Escreva sua opinião aqui..."></textarea>
                 <button onclick="enviarMensagem()">Enviar</button>
                 <p id="modalConfirmacao" class="escondido">Sua mensagem foi enviada.</p>
+                
+                <!-- Sinopse do livro -->
+                <div id="modalSinopse" class="sinopse"></div>
             </div>
         </div>
     </div>
 
     <script>
-        function abrirModal(imagemSrc) {
+        function abrirModal(imagemSrc, link, sinopse) {
             document.getElementById('modalImagem').src = imagemSrc;
+            document.getElementById('modalLink').href = link;
+            document.getElementById('modalSinopse').textContent = sinopse;
             document.getElementById('modal').style.display = 'flex';
             document.getElementById('modalMensagem').value = '';
             document.getElementById('modalMensagem').disabled = false;
@@ -246,5 +356,10 @@
             }
         }
     </script>
+
+    <footer>
+        &copy; 2025 Librelivro. Todos os direitos reservados.
+    </footer>
+
 </body>
 </html>
