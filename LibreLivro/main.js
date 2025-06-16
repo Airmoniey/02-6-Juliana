@@ -12,3 +12,21 @@ function abrirModal(imagemSrc, link, sinopse) {
     const estrelas = document.querySelectorAll('#modalRating input');
     estrelas.forEach(estrela => estrela.checked = false);
 }
+
+function fecharModal() {
+    document.getElementById('modal').style.display = 'none';
+}
+
+function enviarMensagem() {
+    const textarea = document.getElementById('modalMensagem');
+    const confirmacao = document.getElementById('modalConfirmacao');
+    const botao = document.querySelector('.modal-form button');
+
+    if (textarea.value.trim() !== '') {
+        textarea.disabled = true;
+        botao.disabled = true;
+        confirmacao.classList.remove('escondido');
+    } else {
+        alert("Por favor, escreva uma mensagem antes de enviar.");
+    }
+}
